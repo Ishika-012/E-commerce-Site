@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAYMENT</title>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="https://kit.fontawesome.com/8a642774e7.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="src/rap.css">
+  <link rel="stylesheet" href="src/frame.css">
+</head>
+<body id="BODY">
+  <header>
+    <nav>
+      <div class="group">
+      <ul class="navBar">
+        <li id="n1">RapiFy</li>
+        <li class="head"> Fastest Delivery</li>
+        <li><input type="text"  class="searchBar" name="name" placeholder="Search anything">
+         <span id="icon"> <ion-icon name="search-outline" ></ion-icon></span>
+        </li>
+        <li ><button class="login" >Login</button></li>
+        <li><a href="../cart.html"><button class="bttn"><i class="fa-solid fa-cart-shopping" style="color: #046710;"></i> My cart
+        </button></a>
+        <span id="count">0</span>
+        </li>
+      </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- login details -->
+ 
+  <div class="overlay hide"></div>
+     <center><iframe class="frame hide" height="400rem" width="400rem" src="/userLogin.html" scrolling="no"></iframe></center>
+
+  <!-- payment page code -->
+   <section class="sec">
+     <h2 class="address" id="add"><i class="fa-solid fa-circle-plus" style="color:darkgreen"></i>Add Address</h2>
+     <div  id="text"> </div>
+   </section>
+   <section id="pay" class="sec">
+    <h2 class="address">Select Payment Option</h2>
+    <ul>
+      <li id="upi">
+        <span>UPI</span>  
+        <span id="v">v</span>
+        <form id="upi-pay" >
+        <label>ENTER UPI ID:</label>
+        <input type="text" placeholder="Enter upi id" required id="text">
+        <input type="submit" class="submit">
+        </form>
+      </li>
+      <li id="card">
+        <span>Credit/Debit Card</span>
+        <span id="vc">v</span>
+        <form id="card-pay" >
+          <label>CARD NUMBER:</label>
+          <input type="text" placeholder="Enter Card Number" class="card-info" required><br>
+          <label>CARD HOLDER:</label>
+          <input type="text" placeholder="Card Holder Name" class="card-info" required><br>
+          <div>
+          <label >Expiration Month</label>
+          <label class="label">Expiration Year</label>
+          <label class="label">CVV</label>
+        </div>
+        <select name="month" class="bank">
+          <option value="select">MONTH</option>
+          <option value="select">JAN</option>
+          <option value="select">FEB</option>
+          <option value="select">MAR</option>
+          <option value="select">APR</option>
+          <option value="select">MAY</option>
+          <option value="select">JUN</option>
+          <option value="select">JUL</option>
+          <option value="select">AUG</option>
+          <option value="select">SEPT</option>
+          <option value="select">OCT</option>
+          <option value="select">NOV</option>
+          <option value="select">DEC</option>
+        </select>
+          <select name="year" class="bank">
+            <option value="year1">YEAR</option>
+            <option value="year1">2024</option>
+            <option value="year1">2025</option>
+            <option value="year1">2026</option>
+            <option value="year1">2027</option>
+            <option value="year1">2028</option>
+            <option value="year1">2029</option>
+            <option value="year1">2030</option>
+          </select>
+        <input type="text" placeholder="Enter CVV" class="bank"><br>
+        <input type="submit" class="submit" id="submit">
+          </form>
+      </li>
+      <li id="cash">Cash on Delivery</li>
+    </ul>
+   </section>
+   
+
+
+  <script src="src/app.js"></script>
+
+  <script>
+    //add address
+    let section = document.querySelector('section');
+    let address = document.querySelector("#add");
+    let text = document.querySelector("#text");
+    let adds = document.querySelector(".address");
+  
+       
+    address.addEventListener("click", () =>{
+      adds.style.borderBottom='solid';
+      let textArea = document.createElement("textarea");
+       textArea.rows="5";
+       let checkBox = document.createElement("input");
+       checkBox.type="checkbox";
+
+       checkBox.id=`box`;
+       textArea.id="textarea";
+   
+      textArea.classList.add("text");
+       textArea.placeholder="Enter your Address";
+       section.appendChild(textArea);
+       textArea.required = true;
+       
+
+        //checkbox
+      checkBox.classList.add('check');
+      section.appendChild(checkBox);
+console.log(checkBox);
+       
+    });
+
+    //payment upi
+  let upiPay = document.querySelector("#upi-pay")
+  let v=document.querySelector("#v");
+  let upi = document.querySelector('#upi');
+
+
+    v.addEventListener("click", ()=>{
+    let d = document.createElement('span');
+    d.textContent='^';
+    d.id = 'v';
+    upiPay.style.display = 'block';
+    v.replaceWith(d);
+   
+    //reverse
+    d.addEventListener("click", ()  => {
+      upiPay.style.display = 'none';
+      d.replaceWith(v);
+    })
+  })
+
+  
+  
+    
+//payment card
+let cardPay = document.querySelector("#card-pay");
+let vc = document.querySelector("#vc");
+
+vc.addEventListener("click", ()=>{
+    let d = document.createElement('span');
+    d.textContent='^';
+    d.id = 'vc';
+    cardPay.style.display = 'block';
+    vc.replaceWith(d);
+   
+    //reverse
+    d.addEventListener("click", ()  => {
+      cardPay.style.display = 'none';
+      d.replaceWith(vc);
+    });
+  })
+
+  
+  </script>
+</body>
+</html>

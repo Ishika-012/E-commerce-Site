@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/src/rap.css">
+  <title>Project 1</title>
+    <link rel="icon" href=".../image2/RF1.jpg"  type="image/x-icon">
+    
+</head>
+<body id="BODY">
+  <header>
+    <nav>
+      <div class="group">
+      <ul class="navBar">
+        <li id="n1">RapiFy</li>
+        <li class="head"> Fastest Delivery</li>
+        <li><input type="search"  class="searchBar" name="name" placeholder="Search Anything"></span>
+        </li>
+        <li ><button class="login" >Login</button></li>
+        <li><a href="/cart.html"><button class="bttn"><i class="fa-solid fa-cart-shopping" style="color: #046710;"></i> My cart
+        </button></a>
+        <span id="count">0</span>
+        </li>
+        
+      </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- login details -->
+  <div class="overlay hide"></div>
+     <center><iframe class="frame hide" height="400rem" width="400rem" src="userLogin.html" scrolling="no"></iframe></center> 
+
+  <div id="deliver">
+  <img src="images/deliver.jpg"  width="350vw" height="250vh" id="deliver-img">
+    <h1 id="s1">Deliver in</h1>
+    <h1 id="s2">Minutes</h1>
+  </div>
+
+  <!-- slider -->
+  <div class="container">
+    <div class="wrapper">
+      <div class="wrap-hold"> 
+        <div id="slider1"></div>
+        <div id="slider-2"></div>
+        <div id="slider-3"></div>
+        </div>
+    </div>
+    <div class="butn-hold">
+      <a href="#slider1" class="button"></a>
+      <a href="#slider-2" class="button"></a>
+      <a href="#slider-3" class="button"></a>
+     </div>
+   </div>
+
+   <h1 id="cat">CATEGORIES</h1>
+   <div class="categories">
+      <div class="card">
+        <a href="Dairy/milk.html" target="_blank" >
+          <img src="../images/milk.avif" height="150px" width="150px" class="img">
+          <p >Dairy bread & eggs</p>
+          </a>
+      </div>
+      <div class="card">
+        <a href="bread.html" target="_blank">
+          <img src="images/veg.png" height="150px" width="150px" class="img">
+          <p > Fruits & Vegetables</p>
+          </a>
+      </div>
+       <div class="card">
+        <a href="../.html" target="_blank">
+          <img src="images/chips.png" height="150px" width="150px" class="img">
+          <p >Snacks</p>
+          </a>
+       </div>
+       <div class="card">
+        <a href="../milkpage.html" target="_blank">
+          <img src="images/ration.jpg" height="150px" width="150px" class="img">
+          <p >      Wheat, Rice & more..</p>
+          </a>
+       </div>
+       <div class="card">
+        <a href="../milkpage.html" target="_blank">
+          <img src="images/masala1.jpg" height="150px" width="150px" class="img">
+          <p>Masala</p>
+          </a>
+       </div>
+       <div class="card">
+         <a href="../milkpage.html" target="_blank">
+         <img src="images/sauce.jpg" height="150px" width="150px" class="img">
+         <p>Sauces & Spread</p>
+         </a>
+       </div>
+       
+   </div>
+  
+
+
+
+  <script src="https://kit.fontawesome.com/8a642774e7.js" crossorigin="anonymous"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<script  src="/src/app.js"></script>
+<script>
+  let basket = JSON.parse(localStorage.getItem('store')) || [];
+  let calculation = () => {
+  let count = document.querySelector("#count");
+  count.textContent = basket.map((x) => x.item).reduce((x,y)=>x+y,0);
+}
+calculation()
+</script>
+</body>
+</html>

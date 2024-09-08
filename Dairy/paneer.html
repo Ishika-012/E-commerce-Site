@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/src/rap.css">
+  <link rel="stylesheet" href="/src/frame.css">
+
+  <script src="https://kit.fontawesome.com/8a642774e7.js" crossorigin="anonymous"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <title>Buy Paneer</title>
+</head>
+<body id="BODY">
+  <header>
+    <nav>
+      <div class="group">
+      <ul class="navBar">
+        <li id="n1">RapiFy</li>
+        <li class="head"> Fastest Delivery</li>
+        <li><input type="text"  class="searchBar" name="name" placeholder="Search anything">
+         <span id="icon"> <ion-icon name="search-outline" ></ion-icon></span>
+        </li>
+        <li ><button class="login" >Login</button></li>
+        <li><a href="/cart.html"><button class="bttn"><i class="fa-solid fa-cart-shopping" style="color: #046710;"></i> My cart
+        </button></a>
+        <span id="count">0</span>
+        </li>
+        
+      </ul>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- login details -->
+ 
+  <div class="overlay hide"></div>
+     <center><iframe class="frame hide" height="400rem" width="400rem" src="/userLogin.html" scrolling="no"></iframe></center>
+
+     <!-- iframe -->
+     <section class="grp">
+     <iframe height="500rem" width="250rem"  src="/FrameScroll.html" class="fscroll"></iframe>
+
+    <!-- Paneer products -->
+     <div class="grid" id="shop">
+      
+  </div>
+     </section>
+  
+
+  
+
+<script src="/src/app.js"></script>
+<script>
+  let shop =document.querySelector('#shop');
+ 
+ //paneer page array
+ let paneerData = [
+  {id:"paneer1",
+    Name:"Amul Fresh Malai Paneer",
+    price:89,
+    quant:"200gm",
+    img:"../images/amp.webp"
+ },
+ {id:"paneer2",
+   Name:"Mother Dairy Fresh Malai Paneer",
+   price:92,
+   quant:"200gm",
+   img:"../images/mdp.avif"
+ },
+ {id:"paneer3",
+   Name:"Gowardhan Fresh Paneer",
+   price:90,
+   quant:"200gm",
+   img:"../images/gp.webp"
+ },
+ {id:"paneer4",
+   Name:"Patanjali Fresh Paneer made from CowMilk",
+   price:85,
+   quant:"200gm",
+   img:"/images/patanjali_p.webp"
+ }
+ ]
+
+ let basket =JSON.parse(localStorage.getItem("store")) || [];
+ 
+ let storage = (search, id, index) => {
+  if (!search || search.length === 0) {
+    return `<span class="btn" id=${id} onclick="increment(${id})">ADD</span>`;
+  } else {
+    return `<span class="btn1" id="button">
+              <button id="sub${index}" onclick="decrement(${id},${index})" style="background-color:lightgreen; border-width:1pt;border-color:green;width:1rem">-</button>
+              <span id=${id} class="num">${search.item}</span>
+              <button id="add${index}" onclick="increment(${id},${index})" style="background-color:lightgreen; border-width:1pt;border-color:green;width:1rem">+</button>
+            </span>`;
+  }
+};
+
+ 
+ 
+  let generateProduct = () =>{
+      return  (shop.innerHTML= paneerData.map((x) => {
+        let {id,Name,price,quant,img,index} = x;
+        let search = basket.find((x) => x.id === id) || [];
+        return `
+        <div id= product-id-${id} class="box">
+            <img src=${img} height="150px">
+              <p class="br">${Name}</p> 
+              <div class="quant">${quant}</div>
+              <div class="add">
+                  <span class="price"><i class="fa-solid fa-indian-rupee-sign" style="color: #0a0a0a;" id="rupee"></i>${price}</span>
+                <span >
+                  <span class ='product' >
+                  ${storage(search,id,index)};
+                  </span>
+              </div> 
+          </div>
+        </div>`;
+      }).join("") )
+      
+    }
+  generateProduct();
+
+  let btn =document.querySelectorAll('.btn');
+  
+  
+  
+
+  let increment = (id)=> {
+    const unique = id;
+    let search = basket.find((x) => x.id === unique.id);
+    if(!search){
+    basket.push({
+    id:unique.id,
+    item: 1
+    })
+    }
+    else{
+    search.item +=1;
+    }
+    update(unique.id);
+    generateProduct(); 
+    localStorage.setItem("store", JSON.stringify(basket));
+    
+   
+  }
+
+  let decrement = (id) => {
+   const unique = id;
+    let search = basket.find( (x) => x.id === unique.id) ;
+    if(search === undefined) return;
+    else if(search.item === 0) return;
+    else{
+    search.item -= 1;
+    }
+    // if(search.item === 0){
+    // change(index,id);
+    // return
+    // } 
+    update(unique.id);  
+   basket=basket.filter((x)=>x.item!==0);
+   generateProduct(); 
+   localStorage.setItem("store", JSON.stringify(basket));
+ 
+  
+  }
+
+  let update = (id) => {
+    let search = basket.find( x => x.id === id);
+    if(search){
+    document.getElementById(id).innerText = search.item;
+    }
+    
+  calculation();
+  }
+    
+  let calculation = () => {
+    let count = document.querySelector("#count");
+    count.textContent = basket.map((x) => x.item).reduce((x,y)=>x+y,0);
+  }
+  calculation()
+
+  
+
+  btn.forEach((b,index)=>{
+  
+    b.addEventListener('click',() =>{
+      let x = paneerData[index]; 
+      let {id} =x;
+      let d= document.createElement('span');
+      d.id = `wrapper${index}`;
+      
+    d.innerHTML =  `<span class="btns" id="button"><button id="sub${index}"  onclick="decrement(${id},${index})"            style="background-color:lightgreen; border-width:1pt;border-color:green;width:1rem">-</button>
+                  <span id = ${id} class="num">1</span>
+                  <button id="add${index}" onclick="increment(${id})" style="background-color:lightgreen;  border-width:1pt;border-color:green;width:1rem">+</button></span>`
+                  
+    
+  b.replaceWith(d);
+  
+  })
+  })
+
+
+  </script>
+  </body>
+  </html>
